@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %} Cart | Shops Delivery {% endblock %}
+{% block content %}
+<div class="container product-cart">
+    <div class="row">
+        <div class="col-12 my-5"> <h1 class="text-center display-4"> Корзина </h1> </div>
+    </div>
+    <div class="row col-row">
+        <table class="table mt-5">
+          <thead>
+            <tr>
+              <th scope="col" class="text-center">Товар</th>
+              <th scope="col" class="text-center">Цена</th>
+              <th scope="col" class="text-center">Количество</th>
+              <th scope="col" class="text-center">Сумма</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for product in cart_products %}
+            <tr>
+              <td class="img_cart">
+                 <img src="/static/styles/images/{{ product['image'] }}.jpg" alt="">
+                  <span class="align-middle fs-5"> {{ product['name'] }} </span>
+              </td>
+              <td class="text-center align-middle">
+                  <span class="fs-5">₴ {{ product['price'] }} </span>
+              </td>
+              <td class="text-center align-middle">
+                 {{ product['quantity'] }}
+              </td>
+              <td class="text-center align-middle ">
+                  <span class="fw-bold fs-5"> ₴ {{ product['total'] }}</span>
+                  <a href="{{ url_for('remove_from_cart', index=product['index']) }}">
+                      <button type="button" class="btn btn-outline-danger btn-sm ms-1">
+                          <i class="bi bi-trash"></i>
+                      </button>
+                  </a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col">Итого к оплате:<span class="fw-bold fs-5"> ₴ {{to_pay}}</span></div>
+    </div>
+    <div class="mt-3">
+        <div >
+            <a href="{{ url_for('index')}}" class="view_cart"> Продолжить покупку </a>
+        </div>
+        <div class="mt-3">
+            <a href="{{ url_for('checkout') }}" class="btn btn-success"> Оплатить </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

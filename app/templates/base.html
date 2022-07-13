@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+    <title>{% block title%}{% endblock %}</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('index') }}">
+            Sh
+            <div class="spinner-border spinner-border-sm" role="status"></div>
+            ps Delivery
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url_for('index') }}"> Главная </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item px-2">
+                    <a class="nav-link" href="№" data-bs-toggle="modal"
+                       data-bs-target="#cart-modal">
+                        <i class="bi bi-cart" style="font-size: 20px;"></i>
+                        Корзина <span class="badge bg-warning text-dark"> {{ quantity_in_cart }} </span>
+                    </a>
+                    <div class="modal fade" id="cart-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"> Корзина </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">Товар</th>
+                                            <th scope="col" class="text-center">Цена</th>
+                                            <th scope="col" class="text-center">Количество</th>
+                                            <th scope="col" class="text-center">Сумма</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for product in cart_products %}
+                                        <tr>
+                                            <td class="img_cart_small">
+                                                <img src="/static/styles/images/{{ product['image'] }}.jpg" alt="">
+                                                <span class="align-middle fs-5"> {{ product['name'] }} </span>
+                                            </td>
+                                            <td class="text-center align-middle fs-5"> ₴ {{ product['price'] }} </td>
+                                            <td class="text-center align-middle">
+                                                {{ product['quantity'] }}
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <span class="fw-bold fs-5"> ₴ {{ product['total'] }}</span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <div class="col">
+                                                    <span class="fs-5">Итого к оплате:</span>
+                                                    <span class="fw-bold fs-4"> ₴ {{ to_pay }}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary d-block me-auto" data-bs-dismiss="modal">
+                                        Продолжить покупку
+                                    </button>
+                                    <a href="{{ url_for('remove_all_from_cart') }}">
+                                        <button type="button" class="btn btn-warning"> Очистить корзину </button>
+                                    </a>
+                                    <a href="{{ url_for('cart') }}">
+                                        <button type="button" class="btn btn-success"> В корзину </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block content%}{% endblock%}
+
+<div class="fixed-bottom">{% block footer%} &copy; Copyright 2022 {% endblock%}</div>
+<footer>
+    <div class="footer pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <h4> Информация</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('index') }}"> Главная </a></li>
+                        <li><a href="{{ url_for('cart') }}"> Корзина </a> </li>
+                        <li><a href="#"> О нас </a></li>
+                        <li><a href="#"> Контакты </a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 col-6">
+                    <h4> Время работы </h4>
+                    <ul class="list-unstyled">
+                        <li> Пн - Пт 09:00 - 21:00</li>
+                        <li> Сб - Вс 10:00 - 18:00</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 col-6">
+                    <h4> Контакты </h4>
+                    <ul class="list-unstyled">
+                        <li><a href="tel:+380994937191"> (099) 493 71 91 </a></li>
+                        <li><a href="tel:+380994937192"> (099) 493 71 92 </a></li>
+                        <li><a href="tel:+380994937193"> (099) 493 71 93 </a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 col-6">
+                    <h4> Мы в сети  </h4>
+                    <div class="footer-icons">
+                        <a href="#">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="#">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %} Main | Shops Delivery {% endblock %}
+{% block content %}
+
+<div class="main">
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-2 col-md-4 col-sm-6 my-5 mx-5 shop-block ">
+                    <h5 class="text-center mt-3"> Shops: </h5>
+                    <div class="row">
+                        {% for shop in shops %}
+                        {% if cart_products %}
+                            <div class="col shop-item  pt-2 mx-5 my-2">
+                                {% if cart_products[0].shop_id == shop.id %}
+                                    <a href="{{ url_for('index', shop_id=shop.id) }}" class="btn btn-outline-success btn-shop fw-bold">
+                                {% else %}
+                                    <a href="{{ url_for('index', shop_id=shop.id) }}" class="btn btn-outline-success btn-shop fw-bold disabled">
+                                {% endif %}
+                                        {{ shop.shop_name }}
+                                     </a>
+                            </div>
+                        {% else %}
+                        <div class="col shop-item  pt-2 mx-5 my-2">
+                            <a href="{{ url_for('index', shop_id=shop.id) }}" class="btn btn-outline-success btn-shop fw-bold">
+                                {{ shop.shop_name }}
+                            </a>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        {% for product in products %}
+                        <div class="col-xl-4 col-md-6 col-sm-12 product-item mt-5 mx-5 py-2">
+                            <a href="#">
+                                <img src="/static/styles/images/{{ product[1].image }}.jpg" class="mx-auto rounded d-block">
+                            </a>
+                            <h3 class="text-center mt-2 mx-auto">{{ product[1].product_name }}</h3>
+                            <p class="text-center"> Цена: &#8372; {{ product[1].price }} </p>
+                            <div class="d-flex justify-content-center">
+                                <a href="{{ url_for('quick_add_to_cart', shop_id=product[1].shop_id, product_id=product[1].id) }}" class="btn btn-success">
+                                    Купить
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

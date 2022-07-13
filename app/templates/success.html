@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title%} Checkout-Success | i-Shop{% endblock%}
+{% block content %}
+<div class="container success">
+    <div class="row mt-5">
+        <div class="col-12">
+            <p class="thanks">Спасибо за ваш заказ!</p>
+            <p> Ваш заказ будет обработан.
+                C Вами свяжется оператор для уточнения времени доставки. </p>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-6 me-5 success-info pt-3">
+            <span class="order-id"> Заказ № {{ order_id}} </span>
+            <span class="order-date ps-3"> от {{ now }}</span>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col" class="text-center">Товар</th>
+                    <th scope="col" class="text-center">Цена</th>
+                    <th scope="col" class="text-center">Количество</th>
+                    <th scope="col" class="text-center">Сумма</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in cart_products %}
+                <tr>
+                    <td class="img_success">
+                        <img src="/static/styles/images/{{ product['image'] }}.jpg" alt="">
+                        <span class="align-middle fs-6"> {{ product['name'] }} </span>
+                    </td>
+                    <td class="text-center align-middle">
+                        <span class="fs-6">₴ {{ product['price'] }} </span>
+                    </td>
+                    <td class="text-center align-middle">
+                        {{ product['quantity'] }}
+                    </td>
+                    <td class="text-center align-middle ">
+                        <span class="fw-bold fs-6"> ₴ {{ product['total'] }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4 ms-5 pt-4 success-info-order">
+            <div style="overflow: hidden;">
+                <p class="text-muted text-to-success" style="float: left;"> Доставка в </p>
+                <p class="text-to-success" style="float: right;"> г. {{ form.city.data }} </p>
+            </div>
+            <div style="overflow: hidden;">
+                <p class="text-muted text-to-success" style="float: left;"> Получатель </p>
+                <p class="text-to-success" style="float: right;">
+                    {{ form.name.data }}
+                </p>
+            </div>
+            <div style="overflow: hidden;">
+                <p class="text-muted text-to-success" style="float: left;"> Оплата </p>
+                <p class="text-to-success" style="float: right;"> Наличными при получении </p>
+            </div>
+            <div style="overflow: hidden;">
+                <p class="pt-1 text-muted text-to-success" style="float: left;"> К оплате </p>
+                <p class="fw-bold fs-4 text-to-success" style="float: right;"> &#8372; {{ to_pay + 45 }} </p>
+            </div>
+            <p></p>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
