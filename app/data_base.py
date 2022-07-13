@@ -5,8 +5,8 @@ from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 config = {
-    'username': 'postgres',
-    'password': 7654607,
+    'username': 'username',
+    'password': 1233456,
     'host': 'localhost',
     'port': 5432,
     'database': 'shop_db'
