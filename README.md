@@ -4,7 +4,7 @@
 
 ```sh
 $ git clone https://github.com/feispy/library_bot.git
-$ cd library_bot
+$ cd Delivery_app
 $ pip install -r requirements.txt
 ```
 - Open ```data_base.py``` file and change variable ```config``` on your ```username```, ```password```, ```host```, ```port``` and ```database```.
