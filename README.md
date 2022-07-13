@@ -2,18 +2,18 @@
   Online store on Python
 ### 1. Installation
 
-```bash
-$ git clone https://github.com/oleg-soshko/Delivery_app.git
-$ cd Delivery_app
+```sh
+$ git clone https://github.com/feispy/library_bot.git
+$ cd library_bot
 $ pip install -r requirements.txt
 ```
+- Open ```data_base.py``` file and change variable ```config``` on your ```username```, ```password```, ```host```, ```port``` and ```database```.
+This project uses a database ```Postgresql```, but you can choose another by changing the variable ```engine```.
 
-### 2. Running The App
-
-```bash
-python main.py
-```
-
+- Run
+    ```
+    python main.py
+    ```
 ### 3. Viewing The App
 
 Go to `http://127.0.0.1:5000`
