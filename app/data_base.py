@@ -4,7 +4,17 @@ from sqlalchemy.orm import sessionmaker
 
 
 Base = declarative_base()
-engine = create_engine('postgresql://postgres:7654607@localhost:5432/shop_db')
+config = {
+    'username': 'postgres',
+    'password': 7654607,
+    'host': 'localhost',
+    'port': 5432,
+    'database': 'shop_db'
+}
+
+engine = create_engine(
+    f"postgresql://{config['username']}:{config['password']}@{config['host']}:{config['port']}/{config['database']}"
+)
 
 
 class Shop(Base):
