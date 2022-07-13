@@ -137,5 +137,4 @@ class DataBase:
             join(Product, Shop.id == Product.shop_id).filter(Product.id == product_id).first()
         return product
 
-
 Base.metadata.create_all(engine)
